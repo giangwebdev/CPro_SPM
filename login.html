@@ -109,23 +109,23 @@
 	
 	<div class="inputGroup inputGroup1">
 		<label for="username">Username</label>
-		<input type="text" id="username" name="username" class="username" maxlength="256"/>
-		<p class="helper helper1">Your username</p>
+		<input type="text" id="username" name="username" class="username" maxlength="256" required />
+		<p class="helper helper1">Enter your username here!</p>
 		<span class="indicator"></span>
 	</div>
 	<div class="inputGroup inputGroup2">
 		<label for="password">Password</label>
-		<input type="password" name="password" id="password" class="password" />
+		<input type="password" name="password" id="password" class="password" required/>
 	</div>
 	<div class="inputGroup inputGroup3">
 		<button id="login">Log in</button>
-	</div>	
+	</div>
+	  <div id="option">
+		  <a href="view/forget_password.php">Forget password?</a><br><br>
+		  <a href="view/request_account.php">Create new team</a>
+	  </div>
 </form>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js'></script>
-<!--<script src='http://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/MorphSVGPlugin.min.js?r=182'></script>-->
-
-  
-
     <script  src="js/login.js"></script>
 
 

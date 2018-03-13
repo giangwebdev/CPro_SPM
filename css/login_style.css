@@ -26,7 +26,7 @@ form {
   max-width: 400px;
   background-color: #FFF;
   margin: 0;
-  padding: 2.25em;
+  padding: 0.6em 2.25em;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   border: solid 1px #DDD;
@@ -155,4 +155,12 @@ form .inputGroup1.focusWithText .helper {
   -webkit-transform: translate(1.4em, 2em) scale(0.65);
           transform: translate(1.4em, 2em) scale(0.65);
   opacity: 1;
+}
+
+#option a{
+  text-decoration: none;
+}
+
+#option a:hover{
+    text-decoration: underline;
 }

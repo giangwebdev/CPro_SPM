@@ -6,5 +6,5 @@
  * Time: 9:19 AM
  */
 
-$conn = mysqli_connect('localhost', 'root', '', 'test');
+$conn = mysqli_connect('localhost', 'root', '', 'spmfu');
 $lang = mysqli_query($conn, "SET NAMES 'utf8'");
