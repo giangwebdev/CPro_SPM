@@ -12,7 +12,7 @@ require_once("../library/connect.php");
 
 $conn = mysqli_connect('localhost', 'root', '', 'spmfu');
 
-function getAllAccount(){
+function Login_account(){
 
     $sql = "select * from account";
     $query = mysqli_query($GLOBALS['conn'], $sql);
@@ -32,6 +32,25 @@ function get_supervisor(){
         $supervisor_list[] = $row;
     }
     return $supervisor_list;
+}
+
+function get_supervisor_byid($supervisor_id){
+    if ($GLOBALS['conn']->connect_error) {
+        die("Connection failed: " . $GLOBALS['conn']->connect_error);
+    }
+    //prepare and bind
+    $sql = "select full_name from supervisor where supervisor_id=?";
+    $stmt = $GLOBALS['conn']->prepare($sql);
+    $stmt->bind_param("i", $supervisor_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $data = array();
+    while($row = $result->fetch_assoc()){
+        $data = $row;
+    }
+    return $data['full_name'];
+    $stmt->close();
+    $GLOBALS['conn']->close();
 }
 
 function get_prev_team_pending_id(){
@@ -61,3 +80,56 @@ function add_pending_acc($team_pending_id,$student_name,$student_id,$phone, $ema
     $conn->close();
 }
     
+function check_account_duplicate($account){
+    if ($GLOBALS['conn']->connect_error) {
+        die("Connection failed: " . $GLOBALS['conn']->connect_error);
+    }
+    //prepare and bind
+    $sql = "select * from account where username=?";
+    $stmt = $GLOBALS['conn']->prepare($sql);
+    $stmt->bind_param("s", $account);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    if(isset($row)) {return true;}
+    else {return false;}
+    $stmt->close();
+    $GLOBALS['conn']->close();
+}
+
+function get_pending_acc(){
+    if ($GLOBALS['conn']->connect_error) {
+        die("Connection failed: " . $GLOBALS['conn']->connect_error);
+    }
+    //prepare and bind
+    $sql = "select * from student_account_pending where isaccepted=FALSE ";
+    $stmt = $GLOBALS['conn']->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $data = array();
+    while($row = $result->fetch_assoc()){
+        $data[] = $row;
+    }
+    return $data;
+    $stmt-> close();
+    $GLOBALS['conn']->close();
+}
+
+function count_pending_team_member($team_id){
+    if ($GLOBALS['conn']->connect_error) {
+        die("Connection failed: " . $GLOBALS['conn']->connect_error);
+    }
+    //prepare and bind
+    $sql = "SELECT team_pending_id, COUNT(*) as count_mem from student_account_pending where isaccepted = false and team_pending_id = ? group by team_pending_id";
+    $stmt = $GLOBALS['conn']->prepare($sql);
+    $stmt->bind_param("i", $team_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $data = array();
+    while($row = $result->fetch_assoc()){
+        $data = $row;
+    }
+    return $data['count_mem'];
+    $stmt-> close();
+    $GLOBALS['conn']->close();
+}

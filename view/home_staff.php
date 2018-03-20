@@ -33,10 +33,9 @@ session_start();
             <table cellspacing="0" border="1" id="Box">
                 <tr><th id="box_header">Main menu</th></tr>
                 <tr><th id="menu"><ul>
-                            <li><a href="#">Home page</a></li>
-                            <li><a href="../approve_pending_acc.php">Approve account</a></li>
-                            <li><a href="#">Manage account</a></li>
-                            <li><a href="#">Manage request</a></li>
+                            <li><a href="../approve_pending_acc.php">Manage account request</a></li>
+                            <li><a href="#">Create account</a></li>
+                            <li><a href="#">Edit account</a></li>
                             <li><a href="#">Manage team</a></li>
                             <li><a href="../controller/logout.php">Logout</a></li>
                      </ul></th></tr>
