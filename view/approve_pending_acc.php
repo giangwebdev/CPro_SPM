@@ -7,6 +7,20 @@
  */
 
 include_once ('../model/database_query.php');
+session_start();
+if(!isset($_SESSION['acc_id']) || $_SESSION['role_id'] != "2" ){
+    echo '<script type="text/javascript">
+           window.location = "../index.php";
+          </script>';
+
+}
+    $acc_id = $_SESSION['acc_id'];
+    if(is_supervisor_leader_by_acc_id($acc_id) == false){
+        echo '<script type="text/javascript">
+           alert("You have no permission to access this funtion.");
+           window.location = "../view/home_supervisor.php";
+          </script>';
+    }
 
 ?>
 
@@ -36,8 +50,7 @@ include_once ('../model/database_query.php');
         <div>
             <ul>
                 <li>Name:<?php echo $pending_acc['full_name'];
-                if($pending_acc['isteamleader']=='1') echo "(Team leader)";
-                ?></li>
+                if($pending_acc['isteamleader']=='1') echo "(Team leader)"; ?></li>
                 <li>Student ID:<?php echo $pending_acc['student_id'];   ?></li>
                 <li>Phone number:<?php echo $pending_acc['phone'];    ?></li>
                 <li>Email:<?php echo $pending_acc['email'];    ?></li>
@@ -45,21 +58,39 @@ include_once ('../model/database_query.php');
         </div>
 
     </div>
+            <form action="../controller/approve_pending_acc.php" method="post">
     <?php
             $total_team_member = count_pending_team_member($pending_acc['team_pending_id']);
             if($count_team_member == $total_team_member ){
-                $supervisor_name = get_supervisor_byid($pending_acc['supervisor_id']);
-                    if(isset($supervisor_name)){
-                        echo "Supervisor: " . $supervisor_name;
+                $print_supervisor= "<select id='supervisor' name='supervisor'>";
+                $supervisor_name = get_supervisor();
+                $print_supervisor .= "<option value='null'";
+                if(!isset($pending_acc['supervisor']) || $pending_acc['supervisor_id']==null){
+                    $print_supervisor .= "selected >No selection</option>";
+                }else{
+                    $print_supervisor .= ">No selection</option>";
+                }
+                foreach ($supervisor_name as $name){
+                    $print_supervisor .= "<option value='".$name['full_name']."'";
+                    if($name['supervisor_id'] == $pending_acc['supervisor_id']){
+                        $print_supervisor .= "selected >".$name['full_name']."</option>";
                     }else{
-                        echo "No selection.";
+                        $print_supervisor .= ">".$name['full_name']."</option>";
                     }
-
-
-                echo "<br>Note: ".$pending_acc['note']."<br><br>";
+                }
+                $print_supervisor .= "</select>";
+                $print_supervisor .= "<br>Note: ".$pending_acc['note']."<br><br>";
+                echo $print_supervisor;
                    ?>
-                <form action="../controller/approve_pending_acc.php" method="post">
-                    <input type="hidden" name="account_data" value="<?php ?>">
+
+                    <input type="hidden" name="student_id" value="<?php echo $pending_acc['student_id'];?>">
+                    <input type="hidden" name="student_name" value="<?php echo $pending_acc['full_name'];?>">
+                    <input type="hidden" name="student_team_pending_id" value="<?php echo $pending_acc['team_pending_id'];?>">
+                    <input type="hidden" name="student_phone" value="<?php echo $pending_acc['phone'];?>">
+                    <input type="hidden" name="student_mail" value="<?php echo $pending_acc['mail'];?>">
+                    <input type="hidden" name="student_isteamleader" value="<?php echo $pending_acc['isteamleader'];?>">
+                    <input type="hidden" name="student_project_en" value="<?php echo $pending_acc['projectname_en'];?>">
+                    <input type="hidden" name="student_project_vi" value="<?php echo $pending_acc['projectname_vi'];?>">
                     <button name="submit" value="submit">Approve</button>
                 </form>
                 <?php
@@ -72,4 +103,3 @@ include_once ('../model/database_query.php');
 
 </body>
 </html>
-<?php     ?>

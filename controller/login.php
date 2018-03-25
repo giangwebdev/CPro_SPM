@@ -9,23 +9,22 @@
 session_start();
 require_once("../model/database_query.php");
 
-$username = $_POST['username'];
-$password = $_POST['password'];
 
-if($username == null || $password == null){
+if(!isset($_POST['password']) || !isset($_POST['username']) || $_POST['username'] == null || $_POST['password'] == null){
     echo '<script type="text/javascript">
                        window.location = "../index.php";
           </script>';
 }
-
+$username = $_POST['username'];
+$password = $_POST['password'];
 $access = false;
-$account_list = getAllAccount();
+$account_list = Login_account();
 
 foreach ($account_list as $acc){
     if($username == $acc['username'] && $password == $acc['password'] ){
         $access = true;
         if($acc['isactive']== 1){
-            $_SESSION["user_id"]=$acc["acc_id"];
+            $_SESSION["acc_id"]=$acc["acc_id"];
             $_SESSION["username"] = $acc["username"];
             $_SESSION["role_id"] = $acc["role_id"];
 

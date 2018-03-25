@@ -1,3 +1,4 @@
+
 <?php
 /**
  * Created by PhpStorm.
@@ -34,21 +35,21 @@ function get_supervisor(){
     return $supervisor_list;
 }
 
-function get_supervisor_byid($supervisor_id){
+function is_supervisor_leader_by_acc_id($acc_id){
     if ($GLOBALS['conn']->connect_error) {
         die("Connection failed: " . $GLOBALS['conn']->connect_error);
     }
     //prepare and bind
-    $sql = "select full_name from supervisor where supervisor_id=?";
+    $sql = "select issupervisorleader from supervisor where acc_id=?";
     $stmt = $GLOBALS['conn']->prepare($sql);
-    $stmt->bind_param("i", $supervisor_id);
+    $stmt->bind_param("i", $acc_id);
     $stmt->execute();
     $result = $stmt->get_result();
     $data = array();
     while($row = $result->fetch_assoc()){
         $data = $row;
     }
-    return $data['full_name'];
+    return $data['issupervisorleader'];
     $stmt->close();
     $GLOBALS['conn']->close();
 }
