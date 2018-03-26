@@ -33,7 +33,6 @@ session_start();
             <table cellspacing="0" border="1" id="Box">
                 <tr><th id="box_header">Main menu</th></tr>
                 <tr><th id="menu"><ul>
-                            <li><a href="../view/approve_pending_acc.php">Manage account request</a></li>
                             <li><a href="#">Create account</a></li>
                             <li><a href="#">Edit account</a></li>
                             <li><a href="#">Manage team</a></li>

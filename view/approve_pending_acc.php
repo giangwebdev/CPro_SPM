@@ -17,7 +17,7 @@ if(!isset($_SESSION['acc_id']) || $_SESSION['role_id'] != "2" ){
     $acc_id = $_SESSION['acc_id'];
     if(is_supervisor_leader_by_acc_id($acc_id) == false){
         echo '<script type="text/javascript">
-           alert("You have no permission to access this funtion.");
+           alert("You have no permission to access this function.");
            window.location = "../view/home_supervisor.php";
           </script>';
     }
@@ -62,7 +62,7 @@ if(!isset($_SESSION['acc_id']) || $_SESSION['role_id'] != "2" ){
     <?php
             $total_team_member = count_pending_team_member($pending_acc['team_pending_id']);
             if($count_team_member == $total_team_member ){
-                $print_supervisor= "<select id='supervisor' name='supervisor'>";
+                $print_supervisor= "Supervisor: <select id='supervisor' name='supervisor'>";
                 $supervisor_name = get_supervisor();
                 $print_supervisor .= "<option value='null'";
                 if(!isset($pending_acc['supervisor']) || $pending_acc['supervisor_id']==null){
