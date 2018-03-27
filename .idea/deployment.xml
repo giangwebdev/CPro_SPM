@@ -5,7 +5,7 @@
       <paths name="XAMPP">
         <serverdata>
           <mappings>
-            <mapping local="" web="" />
+            <mapping deploy="\CPro_SPM\" local="$PROJECT_DIR$/" web="\CPro_SPM\" />
           </mappings>
         </serverdata>
       </paths>

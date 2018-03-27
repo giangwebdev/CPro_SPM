@@ -59,7 +59,8 @@
         <select id="supervisor" name="supervisor">
             <option value="">Choose supervisor</option>
             <?php
-            include_once("../model/database_query.php");
+
+            include_once ('../model/query_for_supervisor.php');
             $supervisor_name = get_supervisor();
             foreach ($supervisor_name as $name){
                 echo "<option value='".$name['full_name']."'>".$name['full_name']."</option>";

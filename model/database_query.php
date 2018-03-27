@@ -7,10 +7,6 @@
  * Time: 9:33 AM
  */
 //
-//$ds = DIRECTORY_SEPARATOR;
-//$base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
-require_once("../library/connect.php");
-
 $conn = mysqli_connect('localhost', 'root', '', 'spmfu');
 
 function Login_account(){
@@ -24,35 +20,7 @@ function Login_account(){
     return $account_list;
 }
 
-function get_supervisor(){
-    $sql = "select * from supervisor";
-    $query = mysqli_query($GLOBALS['conn'], $sql);
 
-    $supervisor_list = array();
-    while($row = mysqli_fetch_assoc($query)){
-        $supervisor_list[] = $row;
-    }
-    return $supervisor_list;
-}
-
-function is_supervisor_leader_by_acc_id($acc_id){
-    if ($GLOBALS['conn']->connect_error) {
-        die("Connection failed: " . $GLOBALS['conn']->connect_error);
-    }
-    //prepare and bind
-    $sql = "select issupervisorleader from supervisor where acc_id=?";
-    $stmt = $GLOBALS['conn']->prepare($sql);
-    $stmt->bind_param("i", $acc_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $data = array();
-    while($row = $result->fetch_assoc()){
-        $data = $row;
-    }
-    return $data['issupervisorleader'];
-    $stmt->close();
-    $GLOBALS['conn']->close();
-}
 
 function get_prev_team_pending_id(){
     $sql = "SELECT team_pending_id FROM student_account_pending ORDER BY acc_pending_id DESC LIMIT 1";
@@ -131,6 +99,44 @@ function count_pending_team_member($team_id){
         $data = $row;
     }
     return $data['count_mem'];
+    $stmt-> close();
+    $GLOBALS['conn']->close();
+}
+
+function get_project_id($project_name){
+    if ($GLOBALS['conn']->connect_error) {
+        die("Connection failed: " . $GLOBALS['conn']->connect_error);
+    }
+    //prepare and bind
+    $sql = 'select project_id from project where projectname_en=? ';
+    $stmt = $GLOBALS['conn']->prepare($sql);
+    $stmt->bind_param("s", $project_name);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $data = array();
+    while($row = $result->fetch_assoc()){
+        $data = $row;
+    }
+    return $data['project_id'];
+    $stmt-> close();
+    $GLOBALS['conn']->close();
+}
+
+function get_team_id($team_name){
+    if ($GLOBALS['conn']->connect_error) {
+        die("Connection failed: " . $GLOBALS['conn']->connect_error);
+    }
+    //prepare and bind
+    $sql = "select team_id from team where team_name=? ";
+    $stmt = $GLOBALS['conn']->prepare($sql);
+    $stmt->bind_param("s", $team_name);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $data = array();
+    while($row = $result->fetch_assoc()){
+        $data = $row;
+    }
+    return $data['team_id'];
     $stmt-> close();
     $GLOBALS['conn']->close();
 }
