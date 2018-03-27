@@ -11,15 +11,5 @@
       <user-name>root</user-name>
       <introspection-schemas>*:spmfu</introspection-schemas>
     </data-source>
-    <data-source name="@localhost" uuid="61bedaca-655f-49ee-8946-ebc4f673c8b6">
-      <database-info product="MySQL" version="5.5.5-10.1.30-MariaDB" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.45 ( Revision: 9131eefa398531c7dc98776e8a3fe839e544c5b2 )">
-        <extra-name-characters>#@</extra-name-characters>
-        <identifier-quote-string>`</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
-      <secret-storage>master_key</secret-storage>
-      <user-name>root</user-name>
-      <introspection-schemas>*:information_schema</introspection-schemas>
-    </data-source>
   </component>
 </project>

@@ -41,7 +41,7 @@ foreach ($account_list as $acc){
             }
             if($acc['role_id']== 3){
                 echo '<script type="text/javascript">
-                       window.location = "../view/home_staff.php";
+                       window.location = "../view/home_staff.html";
                   </script>';
             }
         }else{

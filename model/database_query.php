@@ -11,7 +11,7 @@
 //$base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
 require_once("../library/connect.php");
 
-$conn = mysqli_connect('localhost', 'root', '', 'spmfu');
+$conn = mysqli_connect('localhost', 'root', 'root', 'spmfu');
 
 function Login_account(){
 

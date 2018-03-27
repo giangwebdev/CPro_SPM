@@ -24,7 +24,7 @@
 
 <body>
     <form action="../controller/request_account.php" method="POST">
-        Capstone project name (In English): <input type="text" name="cp_name_en" ><br>
+        Capstone project name (In English):    <input type="text" name="cp_name_en" ><br>
         Capstone project name (In Vietnamese): <input type="text" name="cp_name_vi" ><br>
         <br>
         <table id="student_list" cellspacing="0">
