@@ -7,6 +7,7 @@
  */
 include_once ('../model/database_query.php');
 include_once ('../model/query_for_supervisor.php');
+include_once ('../model/query_for_staff.php');
 session_start();
 if(!isset($_SESSION['acc_id']) || $_SESSION['role_id'] != "2" ){
     echo '<script type="text/javascript">
@@ -33,15 +34,33 @@ $student_project_en = $_POST['student_project_en'];
 $student_project_vi = $_POST['student_project_vi'];
 $chosen_supervisor = $_POST['supervisor'];
 
+//default password
+$pass = "123";
+
+//create_account($student_team_pending_id,$student_mail,$pass,"1","1");
 
 
+//$current_supervisor_id = get_supervisor_by_accid($acc_id);
+//pending_approve_project($student_project_en,$student_project_vi,$current_supervisor_id,"0");
+//$project_id = get_project_id($student_project_en);
+$team_name = $student_project_en;
+//pending_approve_team($team_name, $chosen_supervisor, $project_id,"1");
+
+$student_acc_id = get_account_id($student_mail);
+$team_id = get_team_id($team_name);
+pending_approve_student($student_acc_id,$student_name,$student_id, $student_phone, $student_mail, $team_id);
+    echo '<script type="text/javascript">
+           //alert("Success!");
+//           window.location = "../view/home_supervisor.php";
+          </script>';
 }else{
+    $role_id = $_SESSION['role_id'];
     $role_now="";
-    if($acc_id == 1 ){
+    if($role_id == 1 ){
         $role_now = "student";
-    }else if ($acc_id == 2){
+    }else if ($role_id == 2){
         $role_now ="supervisor";
-    }else if($acc_id == 3){
+    }else if($role_id == 3){
         $role_now = "staff";
     }
     echo '<script type="text/javascript">

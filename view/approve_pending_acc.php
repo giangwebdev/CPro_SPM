@@ -7,6 +7,7 @@
  */
 
 include_once ('../model/database_query.php');
+include_once ('../model/query_for_supervisor.php');
 session_start();
 if(!isset($_SESSION['acc_id']) || $_SESSION['role_id'] != "2" ){
     echo '<script type="text/javascript">
@@ -110,7 +111,7 @@ if(!isset($_SESSION['acc_id']) || $_SESSION['role_id'] != "2" ){
                     $print_supervisor .= ">No selection</option>";
                 }
                 foreach ($supervisor_name as $name){
-                    $print_supervisor .= "<option value='".$name['full_name']."'";
+                    $print_supervisor .= "<option value='".$name['supervisor_id']."'";
                     if($name['supervisor_id'] == $pending_acc['supervisor_id']){
                         $print_supervisor .= "selected >".$name['full_name']."</option>";
                     }else{
@@ -126,11 +127,11 @@ if(!isset($_SESSION['acc_id']) || $_SESSION['role_id'] != "2" ){
                     <input type="hidden" name="student_name" value="<?php echo $pending_acc['full_name'];?>">
                     <input type="hidden" name="student_team_pending_id" value="<?php echo $pending_acc['team_pending_id'];?>">
                     <input type="hidden" name="student_phone" value="<?php echo $pending_acc['phone'];?>">
-                    <input type="hidden" name="student_mail" value="<?php echo $pending_acc['mail'];?>">
+                    <input type="hidden" name="student_mail" value="<?php echo $pending_acc['email'];?>">
                     <input type="hidden" name="student_isteamleader" value="<?php echo $pending_acc['isteamleader'];?>">
                     <input type="hidden" name="student_project_en" value="<?php echo $pending_acc['projectname_en'];?>">
                     <input type="hidden" name="student_project_vi" value="<?php echo $pending_acc['projectname_vi'];?>">
-                    <button name="submit" value="submit">Approve</button>
+                    <input type="submit" name="submit" value="Approve" />
                 </form>
                 <?php
 

@@ -7,4 +7,3 @@
  */
 
 $conn = mysqli_connect('localhost', 'root', '', 'spmfu');
-$lang = mysqli_query($conn, "SET NAMES 'utf8'");
